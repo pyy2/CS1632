@@ -5,7 +5,8 @@ class Mine
   PLACE = {
     'Sutter Creek' => {
       'gold' => 3,
-      'silver' => 0
+      'silver' => 0,
+      'connect' => ['Angels Camp', 'Coloma']
     },
     'Coloma' => {
       'gold' => 3,
@@ -36,14 +37,14 @@ class Mine
   # Initialization of gold rush simulation
   # 1. Seeds random number generator
   # 2. Sets prospector number
-  # 3. Initializes global variables days, gold, silver
+  # 3. Initializes global variables days, gold, silver, current location
+  # 4. Initialize place hash map
   def initialize(seed, prospector)
     seed_rand_generator seed
     @prospector = prospector
     @days = 0
     @gold = 0
     @silver = 0
-    @current_location = 'Sutter Creek'
     @place = PLACE
   end
 
@@ -53,18 +54,22 @@ class Mine
   end
 
   # BEGIN SIMULATION
+
+  # Print start location of prospector
   def start
-    print start_location
+    print "Prospector #{@prospector} starting in Sutter Creek.\n"
+    start_location 'Sutter Creek'
+  end
+
+  def start_location(current_location)
+
     5.times do |x|
       if mine_area?
         print "\tFound "
-        print @place[@current_location]['gold']
-        puts " ounces of gold in #{@current_location}"
+        print @place[current_location]['gold']
+        puts " ounces of gold in #{current_location}"
       end
-      #     add_loot
-      # else
-      #     move_location
-      # end
+
       travel 'hi', 'bye', 2, 1
     end
     # debugging
@@ -75,25 +80,11 @@ class Mine
     true
   end
 
-  # Print start location of prospector
-  def start_location
-    "Prospector #{@prospector} starting in Sutter Creek.\n"
-  end
-
-  # Prints travel message between locations with amount found
+  # Prints travel message between locations with amount
+  # of gold and silver in possession.
   def travel(location1, location2, gold, silver)
     print "Heading from #{location1} to #{location2}"
-
-    if gold > 0 || silver > 0
-      print ', holding '
-    end
-
     print_amount 'gold', gold
-
-    if gold > 0 && silver > 0
-      print ' and '
-    end
-
     print_amount 'silver', silver
     puts '.'
   end
@@ -103,17 +94,14 @@ class Mine
     puts 'hi'
   end
 
-  def print_plural(metal)
-    print metal == 1 ? ' ounce ' : ' ounces '
+  def print_plural(amount)
+    print amount == 1 ? ' ounce ' : ' ounces '
   end
 
   def print_amount(name, amount)
-    # return "#{amount} #{print_plural(amount)} of #{name}" if amount > 0
-    if amount > 0
-      print amount
-      print_plural amount
-      print "of #{name}"
-    end
+    print "#{amount}"
+    print_plural amount
+    print "of #{name}"
   end
 
   def print_total(gold, silver)
