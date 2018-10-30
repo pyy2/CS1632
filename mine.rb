@@ -65,19 +65,15 @@ class Mine
   # Print start location of prospector
   def start
     print "Prospector #{@prospector} starting in Sutter Creek.\n"
-    set_current_location 'Sutter Creek'
+    next_location 'Sutter Creek'
   end
 
   def start_location(current_location)
-
     if @count < 5
-    # Initialize variables
-    max_gold = @place[current_location]['gold']
-    max_silver = @place[current_location]['silver']
-    connecting_cities = @place[current_location]['connect']
-
-    # Visit 5 cities
-      gold_found, silver_found = found max_gold, max_silver
+      # Initialize variables
+      max_gold = @place[current_location]['gold']
+      max_silver = @place[current_location]['silver']
+      connecting_cities = @place[current_location]['connect']
 
       if found?
         # puts connecting_cities
@@ -89,22 +85,32 @@ class Mine
       end
 
       @days += 1
+
+      # Gets random number from 0 to number of connecting cities
       to_location = get_next_location connecting_cities
+
+      # Assigns next connecting city based on rand number
       next_city = @place[current_location]['connect'][to_location]
+
+      # Outputs travel log between cities
       travel current_location, next_city, 2, 1
-      @count = @count + 1
-      set_current_location next_city
+
+      # Increment count until count equals 5
+      @count += 1
+
+      # Sets next city to mine
+      next_location next_city
     end
     # debugging
     # show_results 1, 2
   end
 
-  def set_current_location(next_city)
-      start_location next_city
+  def next_location(next_city)
+    start_location next_city
   end
 
   def get_next_location(connecting_cities)
-    return rand(connecting_cities.length)
+    rand(connecting_cities.length)
   end
 
   def found?
