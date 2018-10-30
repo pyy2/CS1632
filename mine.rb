@@ -89,10 +89,20 @@ class Mine
       end
 
       @days += 1
+
+      # Gets random number from 0 to number of connecting cities
       to_location = get_next_location connecting_cities
+
+      # Assigns next connecting city based on rand number
       next_city = @place[current_location]['connect'][to_location]
+
+      # Outputs travel log between cities
       travel current_location, next_city, 2, 1
+
+      # Increment count until count equals 5
       @count = @count + 1
+
+      # Sets next city to mine
       set_current_location next_city
     end
     # debugging
