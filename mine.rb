@@ -52,6 +52,7 @@ class Mine
     @gold = 0
     @silver = 0
     @place = PLACE
+    @count = 0
   end
 
   # Seeds the random number generator from the first command-line argument
@@ -64,39 +65,57 @@ class Mine
   # Print start location of prospector
   def start
     print "Prospector #{@prospector} starting in Sutter Creek.\n"
-    start_location 'Sutter Creek'
+    set_current_location 'Sutter Creek'
   end
 
   def start_location(current_location)
 
+    if @count < 5
     # Initialize variables
     max_gold = @place[current_location]['gold']
     max_silver = @place[current_location]['silver']
     connecting_cities = @place[current_location]['connect']
 
     # Visit 5 cities
-    3.times do |x|
       gold_found, silver_found = found max_gold, max_silver
-      puts "\t" + gold_found.to_s
-      puts "\t" + silver_found.to_s
-    #   if 
+
+      if found?
         # puts connecting_cities
         # print "\tFound "
         # print @place[current_location]['connect'][0]
         # puts " ounces of gold in #{current_location}"
-    #   else
+      else
         print nothing_found current_location
-    #   end
+      end
 
       @days += 1
-      travel 'hi', 'bye', 2, 1
+      to_location = get_next_location connecting_cities
+      next_city = @place[current_location]['connect'][to_location]
+      travel current_location, next_city, 2, 1
+      @count = @count + 1
+      set_current_location next_city
     end
     # debugging
     # show_results 1, 2
   end
 
+  def set_current_location(next_city)
+      start_location next_city
+  end
+
+  def get_next_location(connecting_cities)
+    return rand(connecting_cities.length)
+  end
+
+  def found?
+    true
+  end
+
   def found(max_gold, max_silver)
-    return rand(max_gold), rand(max_silver)
+    gold_found = rand(max_gold)
+    silver_found = rand(max_silver)
+
+    return gold_found, silver_found
   end
   
   def nothing_found(current_location)
@@ -122,7 +141,7 @@ class Mine
   end
 
   def print_amount(name, amount)
-    print "#{amount}"
+    print " #{amount}"
     print_plural amount
     print "of #{name}"
   end
