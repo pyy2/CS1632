@@ -8,8 +8,6 @@ class GoldRushTest < Minitest::Test
     end
 
     def test_number_of_arguments
-        g::GoldRushTest
-        assert_kind_of Integer, ARGV[0]
     end
 
     def test_seed_argument
@@ -26,5 +24,6 @@ class GoldRushTest < Minitest::Test
 
     def test_rand_generator
     end
+
     
 end
