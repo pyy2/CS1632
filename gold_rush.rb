@@ -1,4 +1,5 @@
 require_relative 'mine.rb'
+require_relative 'seed_rand.rb'
 
 # Unpack command line arguments
 seed, prospectors = ARGV
@@ -33,8 +34,9 @@ valid_args = check_args ARGV
 # If arguments are valid, create a loop of new simulation for each prospector
 # Otherwise, show proper usage message and exit program
 if valid_args
+  Seed.new seed.to_i
   (1..prospectors.to_i).each do |i|
-    m = Mine.new seed.to_i, i
+    m = Mine.new i
     m.start
     puts
     # m.show_results

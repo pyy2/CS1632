@@ -1,3 +1,4 @@
+require_relative 'seed_rand.rb'
 # This is the actual simulation class for the gold_rush program
 class Mine
   # Gold Rush simulator location constants in a nested hashmap
@@ -43,21 +44,16 @@ class Mine
   # Initialization of gold rush simulation
   # 1. Seeds random number generator
   # 2. Sets prospector number
-  # 3. Initializes global variables days, gold, silver, current location
+  # 3. Initializes global variables:
+  #     days, gold, silver, current location
   # 4. Initialize place hash map
-  def initialize(seed, prospector)
-    seed_rand_generator seed
+  def initialize(prospector)
     @prospector = prospector
     @days = 0
     @gold = 0
     @silver = 0
     @place = PLACE
     @count = 0
-  end
-
-  # Seeds the random number generator from the first command-line argument
-  def seed_rand_generator(seed)
-    srand seed
   end
 
   # BEGIN SIMULATION
