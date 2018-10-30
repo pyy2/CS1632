@@ -10,27 +10,33 @@ class Mine
     },
     'Coloma' => {
       'gold' => 3,
-      'silver' => 0
+      'silver' => 0,
+      'connect' => ['Sutter Creek', 'Virginia City']
     },
     'Angels Camp' => {
       'gold' => 4,
-      'silver' => 0
+      'silver' => 0,
+      'connect' => ['Sutter Creek', 'Nevada City', 'Virginia City']
     },
     'Nevada City' => {
       'gold' => 5,
-      'silver' => 0
+      'silver' => 0,
+      'connect' => ['Angels Camp']
     },
     'Virginia City' => {
       'gold' => 3,
-      'silver' => 3
+      'silver' => 3,
+      'connect' => ['Angels Camp', 'Coloma', 'Midas', 'El Dorado Canyon']
     },
     'Midas' => {
       'gold' => 0,
-      'silver' => 5
+      'silver' => 5,
+      'connect' => ['Virginia City', 'El Dorado Canyon']
     },
-    'El Dorado Cn' => {
+    'El Dorado Canyon' => {
       'gold' => 0,
-      'silver' => 10
+      'silver' => 10,
+      'connect' => ['Virginia City', 'Midas']
     }
   }.freeze
 
@@ -63,21 +69,38 @@ class Mine
 
   def start_location(current_location)
 
-    5.times do |x|
-      if mine_area?
-        print "\tFound "
-        print @place[current_location]['gold']
-        puts " ounces of gold in #{current_location}"
-      end
+    # Initialize variables
+    max_gold = @place[current_location]['gold']
+    max_silver = @place[current_location]['silver']
+    connecting_cities = @place[current_location]['connect']
 
+    # Visit 5 cities
+    3.times do |x|
+      gold_found, silver_found = found max_gold, max_silver
+      puts "\t" + gold_found.to_s
+      puts "\t" + silver_found.to_s
+    #   if 
+        # puts connecting_cities
+        # print "\tFound "
+        # print @place[current_location]['connect'][0]
+        # puts " ounces of gold in #{current_location}"
+    #   else
+        print nothing_found current_location
+    #   end
+
+      @days += 1
       travel 'hi', 'bye', 2, 1
     end
     # debugging
-    show_results 1, 2
+    # show_results 1, 2
   end
 
-  def mine_area?
-    true
+  def found(max_gold, max_silver)
+    return rand(max_gold), rand(max_silver)
+  end
+  
+  def nothing_found(current_location)
+    puts "\tFound no precious metals in #{current_location}"
   end
 
   # Prints travel message between locations with amount
