@@ -6,50 +6,25 @@ class GoldRushTest < Minitest::Test
     def setup
         @g = gold_rush::new
     end
-    
-    # UNIT TESTS FOR METHOD arguments
-    # Equivalence classes:
-    # x= -INFINITY..-1 -> returns -x
-    # x= 0..INFINITY -> returns x
-    # x= (not a number) -> returns nil
 
-    # If a negative value is given for x, then -x is returned.
-    def test_seed_negative_val
-        assert_equal 1, absolute_value(-1)
-    end
-    
-    # If a positive value is given for x, then x is returned.
-    def test_seed_positive_val
-        assert_equal 1, absolute_value(1)
-    end
-    
-    # If an invalid value, such as a string, is given for x,
-    # then nil is returned.
-    # EDGE CASE
-    def test_seed_invalid_val
-        assert_nil absolute_value("poodle")
+    def test_number_of_arguments
+        g::GoldRushTest
+        assert_kind_of Integer, ARGV[0]
     end
 
-    # UNIT TESTS FOR METHOD argument(x)
-    # Equivalence classes:
-    # x= -INFINITY..-1 -> returns -x
-    # x= 0..INFINITY -> returns x
-    # x= (not a number) -> returns nil
+    def test_seed_argument
+    end
 
-    # If a negative value is given for x, then -x is returned.
-    def test_seed_negative_val
-        assert_equal 1, absolute_value(-1)
+    def test_prospector_argument
+    end
+
+    def test_start_location
+    end
+
+    def test_gold_found
+    end
+
+    def test_rand_generator
     end
     
-    # If a positive value is given for x, then x is returned.
-    def test_seed_positive_val
-        assert_equal 1, absolute_value(1)
-    end
-    
-    # If an invalid value, such as a string, is given for x,
-    # then nil is returned.
-    # EDGE CASE
-    def test_seed_invalid_val
-        assert_nil absolute_value("poodle")
-    end
 end
