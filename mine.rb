@@ -1,16 +1,37 @@
 # This is the actual simulation class for the gold_rush program
 class Mine
-  # Gold Rush simulator constants
+  # Gold Rush simulator location constants in a nested hashmap
 
-  PLACE = [
-    { location: 'Sutter Creek', silver: 0, gold: 2 },
-    { location: 'Coloma', silver: 0, gold: 3 },
-    { location: 'Angels Camp', silver: 0, gold: 4 },
-    { location: 'Nevada City', silver: 0, gold: 5 },
-    { location: 'Virginia City', silver: 3, gold: 3 },
-    { location: 'Midas', silver: 5, gold: 0 },
-    { location: 'El Dorado Cn', silver: 10, gold: 0 }
-  ].freeze
+  PLACE = {
+    'Sutter Creek' => {
+      'gold' => 3,
+      'silver' => 0
+    },
+    'Coloma' => {
+      'gold' => 3,
+      'silver' => 0
+    },
+    'Angels Camp' => {
+      'gold' => 4,
+      'silver' => 0
+    },
+    'Nevada City' => {
+      'gold' => 5,
+      'silver' => 0
+    },
+    'Virginia City' => {
+      'gold' => 3,
+      'silver' => 3
+    },
+    'Midas' => {
+      'gold' => 0,
+      'silver' => 5
+    },
+    'El Dorado Cn' => {
+      'gold' => 0,
+      'silver' => 10
+    }
+  }.freeze
 
   # Initialization of gold rush simulation
   # 1. Seeds random number generator
@@ -22,6 +43,8 @@ class Mine
     @days = 0
     @gold = 0
     @silver = 0
+    @current_location = 'Sutter Creek'
+    @place = PLACE
   end
 
   # Seeds the random number generator from the first command-line argument
@@ -33,7 +56,12 @@ class Mine
   def start
     print start_location
     5.times do |x|
-      # if mine_area?
+      if mine_area?
+        print "\tFound "
+        print_amount 'gold', 2
+        puts " in #{@current_location}"
+        print @place[@current_location]['gold']
+      end
       #     add_loot
       # else
       #     move_location
@@ -45,7 +73,7 @@ class Mine
   end
 
   def mine_area?
-    false
+    true
   end
 
   # Print start location of prospector
