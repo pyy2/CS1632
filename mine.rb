@@ -26,18 +26,17 @@ class Mine
   # Prints travel message between locations with amount found
   def travel(location1, location2, gold, silver)
     print "Heading from #{location1} to #{location2}"
-    
+
     if gold > 0 || silver > 0
       print ', holding '
     end
-    
-    print_gold gold
+    print_metal 'gold', gold
 
     if gold > 0 && silver > 0
       print ' and '
     end
 
-    print_silver silver
+    print_metal 'silver', silver
 
     puts '.'
   end
@@ -50,19 +49,11 @@ class Mine
     print metal == 1 ? ' ounce ' : ' ounces '
   end
 
-  def print_gold(gold)
-    if gold > 0
-      print gold.to_s
-      print_plural gold
-      print 'of gold'
-    end
-  end
-
-  def print_silver(silver)
-    if silver > 0
-      print silver.to_s
-      print_plural silver
-      print 'of silver'
+  def print_metal(name, amount)
+    if amount > 0
+      print amount
+      print_plural amount
+      print "of #{name}"
     end
   end
 
@@ -76,10 +67,10 @@ class Mine
   def show_results(gold, silver)
     puts "After 15 days, Prospector #{@prospector} returned to San Francisco with:"
     print "\t"
-    print_gold gold
+    print_metal 'gold', gold
     puts '.'
     print "\t"
-    print_silver silver
+    print_metal 'silver', silver
     puts '.'
     print_total gold, silver
   end
