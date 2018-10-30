@@ -1,5 +1,7 @@
-# This is the actual simulation class for gold_rush program
+# This is the actual simulation class for the gold_rush program
 class Mine
+  # Gold Rush simulator constants
+
   PLACE = [
     { location: 'Sutter Creek', silver: 0, gold: 2 },
     { location: 'Coloma', silver: 0, gold: 3 },
@@ -11,13 +13,18 @@ class Mine
   ].freeze
 
   # Initialization of gold rush simulation
-  # Create a new blank board and have the X_PLAYER start the game
+  # 1. Seeds random number generator
+  # 2. Sets prospector number
+  # 3. Initializes global variables days, gold, silver
   def initialize(seed, prospector)
     seed_rand_generator seed
     @prospector = prospector
+    @days = 0
+    @gold = 0
+    @silver = 0
   end
 
-  # Seeds the random number generator from the first argument
+  # Seeds the random number generator from the first command-line argument
   def seed_rand_generator(seed)
     srand seed
   end
@@ -89,7 +96,7 @@ class Mine
   end
 
   def show_results(gold, silver)
-    puts "After 15 days, Prospector #{@prospector} returned to San Francisco with:"
+    puts "After #{@days} days, Prospector #{@prospector} returned to San Francisco with:"
     print "\t"
     print_amount 'gold', gold
     puts '.'
