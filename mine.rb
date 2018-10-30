@@ -105,10 +105,13 @@ class Mine
     # show_results 1, 2
   end
 
+  # Sets next location and passes back to start_location to look for gold
+  # and silver
   def next_location(next_city)
     start_location next_city
   end
 
+  # Get pseudo-random number from 0 to length of connecting_cities array
   def get_next_location(connecting_cities)
     rand(connecting_cities.length)
   end
