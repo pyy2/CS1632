@@ -58,17 +58,16 @@ class Mine
     5.times do |x|
       if mine_area?
         print "\tFound "
-        print_amount 'gold', 2
-        puts " in #{@current_location}"
         print @place[@current_location]['gold']
+        puts " ounces of gold in #{@current_location}"
       end
       #     add_loot
       # else
       #     move_location
       # end
+      travel 'hi', 'bye', 2, 1
     end
     # debugging
-    travel 'hi', 'bye', 2, 1
     show_results 1, 2
   end
 
@@ -78,7 +77,7 @@ class Mine
 
   # Print start location of prospector
   def start_location
-    "Prospector #{@prospector} starting in Sutter Creek."
+    "Prospector #{@prospector} starting in Sutter Creek.\n"
   end
 
   # Prints travel message between locations with amount found
@@ -109,6 +108,7 @@ class Mine
   end
 
   def print_amount(name, amount)
+    # return "#{amount} #{print_plural(amount)} of #{name}" if amount > 0
     if amount > 0
       print amount
       print_plural amount
