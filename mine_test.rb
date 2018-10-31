@@ -5,7 +5,7 @@ class MineTest < MiniTest::Test
 
     # UNIT TEST TO CHECK LOCATIONS
 
-    # Test to make sure that constant PLACE is initialized
+    # Test to make sure that constant PLACE is not null
     def test_places_are_not_empty
         refute_nil Mine::PLACE
     end
