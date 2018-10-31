@@ -4,6 +4,7 @@ require_relative 'mine.rb'
 class MineTest < MiniTest::Test
 
     # UNIT TEST TO CHECK INFORMATION ABOUT LOCATIONS
+    
 
     # Test to make sure that constant PLACE is not nil
     def test_places_are_not_empty
@@ -32,4 +33,9 @@ class MineTest < MiniTest::Test
         assert_equal ['Angels Camp', 'Coloma'], Mine::PLACE['Sutter Creek']['connect']
     end
     
+    # Test that a location not specified will result in a fail
+    def test_place_not_listed
+        assert_nil Mine::PLACE['Pluto']
+    end
+
 end
