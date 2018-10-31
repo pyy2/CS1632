@@ -1,22 +1,17 @@
 require 'minitest/autorun'
-require_relative 'gold_rush'
+require_relative 'check_args.rb'
 
 class GoldRushTest < Minitest::Test
 
-  # Special method that is run before each test to reuse @m instance
-  # variable such that we don't have to type m = GoldRush::new in each test
-  def setup
-    @m = GoldRush::new
-  end
-
-  # UNIT TESTS FOR METHOD arguments
+  # UNIT TESTS FOR CHECKING arguments
   # Equivalence classes:
-  # x= -INFINITY..-1 -> returns -x
-  # x= 0..INFINITY -> returns x
+  # args= -INFINITY..-1 -> returns false
+  # args= 0..INFINITY -> returns false
   # x= (not a number) -> returns nil
   # If a negative value is given for x, then -x is returned.
-  def test_negative_val
-    assert_equal 1, absolute_value(-1)
+  def test_both_args
+    
+    assert_equal false, args.
   end
   
   # If a positive value is given for x, then x is returned.
