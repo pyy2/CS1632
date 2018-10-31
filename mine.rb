@@ -159,32 +159,40 @@ class Mine
     puts '.'
   end
 
+  # Prints 'ounce' or 'ounces' depending on whether the
+  # type of resource is 1 or not
   def print_plural(amount)
     print amount == 1 ? ' ounce ' : ' ounces '
   end
 
+  # Prints to STDOUT the amount of resource and type
   def print_amount(type, amount)
     print " #{amount}"
     print_plural amount
     print "of #{type}"
   end
 
+  # Returns the gold total as a floating point
   def calculate_gold_worth
     20.67 * @gold
   end
 
+  # Returns the silver total as a floating point
   def calculate_silver_worth
     1.31 * @silver
   end
 
+  # Calculates the total gold and silver as a floating point
   def total
     calculate_gold_worth + calculate_silver_worth
   end
 
+  # Prints the total gold and silver amount with a $ in front
   def print_total
     puts "\t Heading home with $#{total.round(2)}."
   end
 
+  # Shows the completion of the simulation for N prospector
   def show_results
     puts "After #{@days} days, Prospector #{@prospector} returned to San Francisco with:"
     print "\t"
