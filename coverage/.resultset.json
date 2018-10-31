@@ -95,6 +95,7 @@
         1,
         1,
         null,
+        null,
         null
       ],
       "/Users/paulyu/Desktop/ComputerScience/SoftwareQA/Deliverables/deliverable2/D2/mine_test.rb": [
@@ -102,6 +103,24 @@
         1,
         null,
         1,
+        null,
+        null,
+        null,
+        null,
+        null,
+        1,
+        1,
+        null,
+        null,
+        null,
+        null,
+        1,
+        1,
+        null,
+        null,
+        null,
+        1,
+        0,
         null,
         null,
         null,
@@ -327,7 +346,7 @@
         null
       ]
     },
-    "timestamp": 1540994826
+    "timestamp": 1541010923
   },
   "Unknown Test Framework": {
     "coverage": {
