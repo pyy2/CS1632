@@ -20,7 +20,7 @@ class ValidArgsTest < MiniTest::Test
     def test_verify_args_no_args
         assert_equal false, @v.verify_args([])
     end
-    
+
     # If there is only 1 command line argument, then
     # false is returned
     def test_verify_args_one_arg
@@ -47,6 +47,7 @@ class ValidArgsTest < MiniTest::Test
     # false is returned
     def test_verify_args_negative_second_args
         assert_equal false, @v.verify_args([0, -2])
+        assert_equal false, @v.verify_args([-1, -2])
     end
 
     # If there are 2 integer arguments with the second
