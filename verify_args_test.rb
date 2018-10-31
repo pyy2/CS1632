@@ -4,7 +4,7 @@ require_relative 'verify_args.rb'
 class ValidArgsTest < MiniTest::Test
 
     # Special method that is run before each test to reuse @v instance
-    # variable such that we don't have to type m = GoldRush::new in each test
+    # variable such that we don't have to type m = VerifyArgs.new in each test
     def setup
         @v = VerifyArgs.new
     end

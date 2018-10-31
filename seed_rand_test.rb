@@ -5,7 +5,7 @@ class SeedRandTest < MiniTest::Test
 
     # UNIT TEST FOR METHOD srand(args)
     # Equivalence classes:
-    # @v = [-INFINITY..INFINITY..] -> returns true
+    # arg = [-INFINITY..INFINITY..] -> returns true
   
     # verifies that seeding the random number generator
     # it is not nil.
