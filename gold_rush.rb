@@ -38,8 +38,8 @@ if valid_args
   (1..prospectors.to_i).each do |i|
     m = Mine.new i
     m.start
+    m.show_results
     puts
-    # m.show_results
   end
 else
   show_usage_and_exit

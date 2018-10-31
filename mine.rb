@@ -52,120 +52,147 @@ class Mine
     @days = 0
     @gold = 0
     @silver = 0
+    @turns = 0
     @place = PLACE
-    @count = 0
   end
 
   # BEGIN SIMULATION
 
-  # Print start location of prospector
+  # Prospector will always start in Sutter Creek. Print Prospector
+  # number then send the String Sutter Creek to location to set a location
   def start
     print "Prospector #{@prospector} starting in Sutter Creek.\n"
-    next_location 'Sutter Creek'
+    location 'Sutter Creek'
   end
 
+  # Sets location and passes back to start_location to look for gold
+  # and silver
+  def location(new_city)
+    start_location new_city
+  end
+
+  # Searches location for gold/silver then prints if found or not found
   def start_location(current_location)
-    if @count < 5
-      # Initialize variables
-      max_gold = @place[current_location]['gold']
-      max_silver = @place[current_location]['silver']
-      connecting_cities = @place[current_location]['connect']
-
-      if found?
-        # puts connecting_cities
-        # print "\tFound "
-        # print @place[current_location]['connect'][0]
-        # puts " ounces of gold in #{current_location}"
-      else
-        print nothing_found current_location
-      end
-
-      @days += 1
+    if @turns < 5
+      print nothing_found current_location unless found current_location
 
       # Gets random number from 0 to number of connecting cities
-      to_location = get_next_location connecting_cities
+      to_location = find_rand(@place[current_location]['connect'].length - 1)
 
       # Assigns next connecting city based on rand number
-      next_city = @place[current_location]['connect'][to_location]
+      new_city = @place[current_location]['connect'][to_location]
 
       # Outputs travel log between cities
-      travel current_location, next_city, 2, 1
+      print_travel current_location, new_city
+      print_amount_type
 
-      # Increment count until count equals 5
-      @count += 1
+      # Increment turns until turns equals 5
+      @turns += 1
 
-      # Sets next city to mine
-      next_location next_city
+      # Sets location to next city
+      location new_city
     end
-    # debugging
-    # show_results 1, 2
   end
 
-  # Sets next location and passes back to start_location to look for gold
-  # and silver
-  def next_location(next_city)
-    start_location next_city
+  # get pseudo-random number from 0 to max + 1
+  def find_rand(max_num)
+    rand(max_num + 1)
   end
 
-  # Get pseudo-random number from 0 to length of connecting_cities array
-  def get_next_location(connecting_cities)
-    rand(connecting_cities.length)
+  def found(current_location)
+    # Assign variables for easy use
+    gold_found = find_rand(@place[current_location]['gold'])
+    silver_found = find_rand(@place[current_location]['silver'])
+
+    # Increment day by 1
+    @days += 1
+
+    # Return false if no gold/silver is found
+    return false if gold_found.zero? && silver_found.zero?
+
+    # First 3 turns, just return if nothing is found
+    # If turn is greater or equal to 3 then it will mean its the
+    # last 2 turns so loop only if gold found is greater than 1
+    # and silver found is greater than 2 otherwise move on
+    if @turns < 3
+      gold_found.nonzero? || silver_found.nonzero?
+      print_loot gold_found, silver_found, current_location
+      add_loot gold_found, silver_found
+      found(current_location)
+    elsif @turns >= 3 && (gold_found > 1 || silver_found > 2)
+      print_loot gold_found, silver_found, current_location
+      add_loot gold_found, silver_found
+      found(current_location)
+    else gold_found > 1 || silver_found > 2
+      print_loot gold_found, silver_found, current_location
+      add_loot gold_found, silver_found
+    end
   end
 
-  def found?
-    true
+  def add_loot(gold_found, silver_found)
+    @gold += gold_found
+    @silver += silver_found
   end
 
-  def found(max_gold, max_silver)
-    gold_found = rand(max_gold)
-    silver_found = rand(max_silver)
-
-    return gold_found, silver_found
+  # Prints amount gold and silver found searching the area
+  def print_loot(gold_found, silver_found, current_location)
+    print "\tFound"
+    print_amount 'gold', gold_found unless gold_found.zero?
+    print_amount 'silver', silver_found unless silver_found.zero?
+    puts " in #{current_location}."
   end
-  
+
+  # Prints message indicating nothing is found in current location
   def nothing_found(current_location)
     puts "\tFound no precious metals in #{current_location}"
   end
 
-  # Prints travel message between locations with amount
-  # of gold and silver in possession.
-  def travel(location1, location2, gold, silver)
+  # Prints travel message between locations
+  def print_travel(location1, location2)
     print "Heading from #{location1} to #{location2}"
-    print_amount 'gold', gold
-    print_amount 'silver', silver
-    puts '.'
   end
 
-  # Searches location for
-  def search_location
-    puts 'hi'
+  # Prints amount gold and silver in possession.
+  def print_amount_type
+    print_amount 'gold', @gold
+    print_amount 'silver', @silver
+    puts '.'
   end
 
   def print_plural(amount)
     print amount == 1 ? ' ounce ' : ' ounces '
   end
 
-  def print_amount(name, amount)
+  def print_amount(type, amount)
     print " #{amount}"
     print_plural amount
-    print "of #{name}"
+    print "of #{type}"
   end
 
-  def print_total(gold, silver)
-    net_gold = 20.67 * gold
-    net_silver = 1.31 * silver
-    total = net_gold + net_silver
-    puts "\tHeading home with $#{total.round(2)}."
+  def calculate_gold_worth
+    20.67 * @gold
   end
 
-  def show_results(gold, silver)
+  def calculate_silver_worth
+    1.31 * @silver
+  end
+
+  def total
+    calculate_gold_worth + calculate_silver_worth
+  end
+
+  def print_total
+    puts "\t Heading home with $#{total.round(2)}."
+  end
+
+  def show_results
     puts "After #{@days} days, Prospector #{@prospector} returned to San Francisco with:"
     print "\t"
-    print_amount 'gold', gold
+    print_amount 'gold', @gold
     puts '.'
     print "\t"
-    print_amount 'silver', silver
+    print_amount 'silver', @silver
     puts '.'
-    print_total gold, silver
+    print_total
   end
 end
