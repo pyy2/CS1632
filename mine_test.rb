@@ -4,7 +4,7 @@ require_relative 'mine.rb'
 class MineTest < MiniTest::Test
 
     # UNIT TEST TO CHECK INFORMATION ABOUT LOCATIONS
-    
+
 
     # Test to make sure that constant PLACE is not nil
     def test_places_are_not_empty
@@ -22,18 +22,14 @@ class MineTest < MiniTest::Test
         assert_equal 3, Mine::PLACE['Sutter Creek']['gold']
     end
 
-    # Test that the max amount of silver can be retrieved from the location
-    def test_place_max_gold
-        assert_equal 0, Mine::PLACE['Sutter Creek']['silver']
-    end
-
     # Test that the correct adjoining cities can be retrieved from
     # a given location in an array format, if not then fails
     def test_place_max_gold
         assert_equal ['Angels Camp', 'Coloma'], Mine::PLACE['Sutter Creek']['connect']
     end
     
-    # Test that a location not specified will result in a fail
+    # Test that inputting a string that is not a key will
+    # result in nil.
     def test_place_not_listed
         assert_nil Mine::PLACE['Pluto']
     end
