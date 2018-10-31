@@ -8,8 +8,4 @@ class VerifyArgs
   rescue StandardError
     false
   end
-<<<<<<< HEAD
 end
-=======
-end
->>>>>>> separated arguments to another class
