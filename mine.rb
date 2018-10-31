@@ -45,7 +45,7 @@ class Mine
   # 1. Seeds random number generator
   # 2. Sets prospector number
   # 3. Initializes global variables:
-  #     days, gold, silver, current location
+  #    days, gold, silver, turn, current location
   # 4. Initialize place hash map
   def initialize(prospector)
     @prospector = prospector
@@ -123,7 +123,7 @@ class Mine
       print_loot gold_found, silver_found, current_location
       add_loot gold_found, silver_found
       found(current_location)
-    else gold_found > 1 || silver_found > 2
+    elsif gold_found > 1 || silver_found > 2
       print_loot gold_found, silver_found, current_location
       add_loot gold_found, silver_found
     end
