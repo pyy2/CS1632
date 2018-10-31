@@ -161,15 +161,25 @@ class Mine
 
   # Prints 'ounce' or 'ounces' depending on whether the
   # type of resource is 1 or not
-  def print_plural(amount)
-    print amount == 1 ? ' ounce ' : ' ounces '
+  def is_plural(amount)
+    amount == 1 ? ' ounce ' : ' ounces '
   end
 
   # Prints to STDOUT the amount of resource and type
   def print_amount(type, amount)
     print " #{amount}"
-    print_plural amount
+    print is_plural amount
     print "of #{type}"
+  end
+  
+  #gets gold value
+  def get_gold
+	@gold
+  end
+  
+  #gets silver value
+  def get_silver
+    @silver
   end
 
   # Returns the gold total as a floating point
