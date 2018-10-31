@@ -3,6 +3,10 @@ require_relative 'mine.rb'
 
 class MineTest < MiniTest::Test
 
+	def setup
+        @f = Mine.new(1)
+    end
+
     # UNIT TEST TO CHECK LOCATIONS
 
     # Test to make sure that constant PLACE is not null
@@ -15,5 +19,18 @@ class MineTest < MiniTest::Test
     def test_places_included
         assert_includes Mine::PLACE, 'Coloma'
     end
+	
+	
+	#Test to make sure that method find_rand will not come up with
+	#value larger than max+1
+	def test_gold_value
+		refute_equal 5, @f.find_rand(3)
+	end
+	
+	def test_ounce_plural
+		assert_equal " ounce ", @f.is_plural(1)
+	end
+	
+	
     
 end
