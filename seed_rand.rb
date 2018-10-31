@@ -2,5 +2,6 @@
 class Seed
   def initialize(seed)
     srand(seed)
+  rescue ArgumentError
   end
 end
