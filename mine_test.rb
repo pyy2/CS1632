@@ -3,17 +3,17 @@ require_relative 'mine.rb'
 
 class MineTest < MiniTest::Test
 
-    # Special method that is run before each test to reuse @m instance
-    # variable such that we don't have to type m = Mine.new in each test
-    def setup
-        @m = Mine.new 1
-    end
+    # UNIT TEST TO CHECK LOCATIONS
 
-    # UNIT TESTS FOR METHOD to check location constant
-    # Equivalence classes:
-
+    # Test to make sure that constant PLACE is initialized
     def test_places_are_not_empty
         refute_nil Mine::PLACE
     end
 
+    # Test that the specified locations is included in the hash to be
+    # able to use, if one is not found, then test fails
+    def test_places_included
+        assert_includes Mine::PLACE, 'Coloma'
+    end
+    
 end
