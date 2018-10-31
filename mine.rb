@@ -171,6 +171,16 @@ class Mine
     print is_plural amount
     print "of #{type}"
   end
+  
+  #gets gold value
+  def get_gold
+	@gold
+  end
+  
+  #gets silver value
+  def get_silver
+    @silver
+  end
 
   # Returns the gold total as a floating point
   def calculate_gold_worth
